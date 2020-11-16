@@ -41,10 +41,10 @@ public class MiniGUI {
         frame.setContentPane(canvas);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        canvas.setLayout(new BoxLayout(canvas, BoxLayout.X_AXIS));
-        final JPanel panel = new JPanel();
-        canvas.add(panel, BorderLayout.CENTER);
-        panel.add(write);
+        final JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.X_AXIS));
+        canvas.add(centerPanel, BorderLayout.CENTER);
+        centerPanel.add(write);
 
         final JTextField resulTextField = new JTextField("Result");
         canvas.add(resulTextField, BorderLayout.NORTH);
