@@ -7,11 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
 import java.util.Random;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -80,7 +83,7 @@ public class BadIOGUI {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try (DataInputStream is = new DataInputStream(new FileInputStream(PATH))) {
-                    System.out.println(is.readInt());
+                    System.out.println(Files.readAllLines(new File(PATH).toPath()));
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
