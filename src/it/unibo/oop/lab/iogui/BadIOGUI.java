@@ -84,6 +84,10 @@ public class BadIOGUI {
             public void actionPerformed(final ActionEvent e) {
                 try (DataInputStream is = new DataInputStream(new FileInputStream(PATH))) {
                     System.out.println(Files.readAllLines(new File(PATH).toPath()));
+                    final List<String> allLines = Files.readAllLines(new File(PATH).toPath());
+                    for (final String line : allLines) {
+                        System.out.println(line);
+                    }
                 } catch (IOException e1) {
                     JOptionPane.showMessageDialog(frame, e1, "Error", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
