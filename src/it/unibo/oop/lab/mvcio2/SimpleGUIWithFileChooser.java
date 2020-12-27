@@ -1,10 +1,24 @@
 package it.unibo.oop.lab.mvcio2;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import it.unibo.oop.lab.mvcio.Controller;
+
 /**
  * A very simple program using a graphical interface.
  * 
  */
 public final class SimpleGUIWithFileChooser {
+
+    private final JFrame frame = new JFrame();
 
     /*
      * TODO: Starting from the application in mvcio:
@@ -31,5 +45,38 @@ public final class SimpleGUIWithFileChooser {
      * update the UI: in this example the UI knows when should be updated, so
      * try to keep things separated.
      */
+    public SimpleGUIWithFileChooser() {
+
+        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final int sw = (int) screen.getWidth();
+        final int sh = (int) screen.getHeight();
+        frame.setSize(sw / 2, sh / 2);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationByPlatform(true);
+
+        final JPanel panel = new JPanel(new BorderLayout());
+        final JTextArea textArea = new JTextArea();
+        final JButton saveBtn = new JButton("Save");
+        final Controller controller = new Controller();
+
+        saveBtn.addActionListener(e -> {
+            try {
+                controller.saveOnFile(textArea.getText());
+               System.out.println(controller.getFullPath());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        panel.add(textArea, BorderLayout.NORTH);
+        panel.add(saveBtn, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+
+    public static void main(final String[] args) {
+        new SimpleGUIWithFileChooser();
+    }
+
 
 }
