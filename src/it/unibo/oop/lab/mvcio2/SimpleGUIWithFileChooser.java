@@ -2,13 +2,18 @@ package it.unibo.oop.lab.mvcio2;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 import it.unibo.oop.lab.mvcio.Controller;
 
@@ -67,7 +72,30 @@ public final class SimpleGUIWithFileChooser {
                 e1.printStackTrace();
             }
         });
-        panel.add(textArea, BorderLayout.NORTH);
+        final JPanel topPanel = new JPanel(new BorderLayout());
+        final JTextField pathField = new JTextField(controller.getFullPath());
+        final JButton browseBtn = new JButton("Browse");
+        pathField.setEditable(false);
+
+        browseBtn.addActionListener(e -> {
+            JFileChooser chooser = new JFileChooser();
+            final int returnState = chooser.showSaveDialog(frame);
+            if (returnState == JFileChooser.APPROVE_OPTION) {
+                pathField.setText(chooser.getSelectedFile().getPath());
+                controller.setFile(chooser.getSelectedFile().getName());
+                textArea.setText(new );
+            } else if (returnState == JFileChooser.CANCEL_OPTION) {
+                //nothing, non error dialog window
+            } else {
+                JOptionPane.showMessageDialog(chooser, "Error");
+            }
+        });
+
+        topPanel.add(pathField, BorderLayout.CENTER);
+        topPanel.add(browseBtn, BorderLayout.EAST);
+
+        panel.add(topPanel, BorderLayout.NORTH);
+        panel.add(textArea, BorderLayout.CENTER);
         panel.add(saveBtn, BorderLayout.SOUTH);
 
         frame.add(panel);
