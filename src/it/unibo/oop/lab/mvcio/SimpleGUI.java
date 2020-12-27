@@ -1,9 +1,15 @@
 package it.unibo.oop.lab.mvcio;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * A very simple program using a graphical interface.
@@ -51,12 +57,35 @@ public final class SimpleGUI {
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / 2, sh / 2);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
+        final JPanel panel = new JPanel(new BorderLayout());
+        final JTextArea textArea = new JTextArea();
+        final JButton saveBtn = new JButton("Save");
+        final Controller controller = new Controller();
+
+        saveBtn.addActionListener(e -> {
+            try {
+                controller.saveOnFile(textArea.getText());
+               System.out.println(controller.getFullPath());
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        });
+        panel.add(textArea, BorderLayout.NORTH);
+        panel.add(saveBtn, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+
+    public static void main(final String[] args) {
+        new SimpleGUI();
     }
 
 }
