@@ -81,6 +81,7 @@ public final class SimpleGUIWithFileChooser {
             if (returnState == JFileChooser.APPROVE_OPTION) {
                 pathField.setText(chooser.getSelectedFile().getPath());
                 controller.setFile(chooser.getSelectedFile().getName());
+                textArea.setText(controller.getAllText());
             } else if (returnState == JFileChooser.CANCEL_OPTION) {
                 //nothing, non error dialog window
                 System.out.println("");
@@ -88,9 +89,9 @@ public final class SimpleGUIWithFileChooser {
                 JOptionPane.showMessageDialog(chooser, "Error");
             }
         });
-
+        System.out.println("set text text area");
         textArea.setText(controller.getAllText());
-        
+
         topPanel.add(pathField, BorderLayout.CENTER);
         topPanel.add(browseBtn, BorderLayout.EAST);
 
