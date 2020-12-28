@@ -2,9 +2,7 @@ package it.unibo.oop.lab.mvcio2;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.io.FileReader;
 import java.io.IOException;
 
 import javax.swing.JButton;
@@ -62,7 +60,7 @@ public final class SimpleGUIWithFileChooser {
         final JPanel panel = new JPanel(new BorderLayout());
         final JTextArea textArea = new JTextArea();
         final JButton saveBtn = new JButton("Save");
-        final Controller controller = new Controller();
+        final ControllerExtended controller = new ControllerExtended();
 
         saveBtn.addActionListener(e -> {
             try {
@@ -78,19 +76,21 @@ public final class SimpleGUIWithFileChooser {
         pathField.setEditable(false);
 
         browseBtn.addActionListener(e -> {
-            JFileChooser chooser = new JFileChooser();
+            final JFileChooser chooser = new JFileChooser();
             final int returnState = chooser.showSaveDialog(frame);
             if (returnState == JFileChooser.APPROVE_OPTION) {
                 pathField.setText(chooser.getSelectedFile().getPath());
                 controller.setFile(chooser.getSelectedFile().getName());
-                textArea.setText(new );
             } else if (returnState == JFileChooser.CANCEL_OPTION) {
                 //nothing, non error dialog window
+                System.out.println("");
             } else {
                 JOptionPane.showMessageDialog(chooser, "Error");
             }
         });
 
+        textArea.setText(controller.getAllText());
+        
         topPanel.add(pathField, BorderLayout.CENTER);
         topPanel.add(browseBtn, BorderLayout.EAST);
 
