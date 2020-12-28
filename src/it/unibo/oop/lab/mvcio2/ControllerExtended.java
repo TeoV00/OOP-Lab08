@@ -3,7 +3,6 @@ package it.unibo.oop.lab.mvcio2;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import it.unibo.oop.lab.mvcio.Controller;
@@ -16,9 +15,10 @@ public class ControllerExtended extends Controller {
     public String getAllText() {
         String text = "";
         try (BufferedReader in = new BufferedReader(new FileReader(this.getFullPath()))) {
-            String line = "";
-            while ((line = in.readLine()) != null) {
+            String line = in.readLine();
+            while (line != null) {
                 text = text.concat(line + "\n");
+                line = in.readLine();
             }
         } catch (IOException exc) {
             exc.printStackTrace();

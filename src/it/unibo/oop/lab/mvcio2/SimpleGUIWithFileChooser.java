@@ -13,8 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-import it.unibo.oop.lab.mvcio.Controller;
-
 /**
  * A very simple program using a graphical interface.
  * 
