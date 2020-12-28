@@ -3,7 +3,7 @@ package it.unibo.oop.lab.mvc;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ControllerImpl implements Controller {
+public final class ControllerImpl implements Controller {
 
     private final List<String> history;
     private String nextToPrint;
