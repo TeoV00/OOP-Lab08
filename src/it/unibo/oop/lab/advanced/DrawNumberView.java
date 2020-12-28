@@ -6,6 +6,11 @@ package it.unibo.oop.lab.advanced;
 public interface DrawNumberView {
 
     /**
+     * @param message error to be displayed on UI
+     */
+    void displayError(String message);
+
+    /**
      * @param observer the controller to attach
      */
     void setObserver(DrawNumberViewObserver observer);
