@@ -1,9 +1,15 @@
 package it.unibo.oop.lab.mvc;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A very simple program using a graphical interface.
@@ -12,7 +18,7 @@ import javax.swing.JFrame;
 public final class SimpleGUI {
 
     private final JFrame frame = new JFrame();
-
+    private static final String NEW_LINE = "\n";
     /*
      * Once the Controller is done, implement this class in such a way that:
      * 
@@ -53,13 +59,43 @@ public final class SimpleGUI {
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / 2, sh / 2);
-
         /*
          * Instead of appearing at (0,0), upper left corner of the screen, this
          * flag makes the OS window manager take care of the default positioning
          * on screen. Results may vary, but it is generally the best choice.
          */
         frame.setLocationByPlatform(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        final JPanel panel = new JPanel(new BorderLayout());
+        final JPanel bottomPan = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        final JTextField textField = new JTextField();
+        final JTextArea textArea = new JTextArea();
+        final JButton printBtn = new JButton("Print");
+        final JButton historyBtn = new JButton("Show History");
+        final Controller con = new ControllerImpl();
+
+        printBtn.addActionListener(e -> {
+            con.setNextString(textField.getText());
+            con.printCurrentString();
+        });
+
+        historyBtn.addActionListener(e -> {
+            textArea.setText("");
+            con.getPrintHistory().forEach(string -> textArea.append(string + NEW_LINE));
+        });
+
+        panel.add(textField, BorderLayout.NORTH);
+        panel.add(textArea, BorderLayout.CENTER);
+        bottomPan.add(printBtn);
+        bottomPan.add(historyBtn);
+        panel.add(bottomPan, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setVisible(true);
     }
 
+    public static void main(final String... args) {
+        new SimpleGUI();
+    }
 }
