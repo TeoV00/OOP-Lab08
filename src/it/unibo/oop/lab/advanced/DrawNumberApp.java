@@ -4,9 +4,8 @@ package it.unibo.oop.lab.advanced;
  */
 public final class DrawNumberApp implements DrawNumberViewObserver {
 
-    private static final int MIN = 0;
-    private static final int MAX = 100;
-    private static final int ATTEMPTS = 10;
+    private static final String GAME_CONFIG_FILE_PATH = "/res/congif.yml";
+    private SettingLoader setting;
     private final DrawNumber model;
     private final DrawNumberView view;
 
@@ -14,7 +13,8 @@ public final class DrawNumberApp implements DrawNumberViewObserver {
      * 
      */
     public DrawNumberApp() {
-        this.model = new DrawNumberImpl(MIN, MAX, ATTEMPTS);
+        this.setting = new SettingLoader(GAME_CONFIG_FILE_PATH);
+        this.model = new DrawNumberImpl(this.setting.getMin(), this.setting.getMax(), this.setting.getAttempts());
         this.view = new DrawNumberViewImpl();
         this.view.setObserver(this);
         this.view.start();
