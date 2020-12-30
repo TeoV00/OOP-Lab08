@@ -1,6 +1,8 @@
 package it.unibo.oop.lab.advanced;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class SettingLoader {
 
@@ -8,9 +10,9 @@ public class SettingLoader {
     private int max;
     private int attemps;
 
-    public SettingLoader(final String configFilePath){
-        try(){
-            
+    public SettingLoader(){
+        try(InputStream in = new BufferedInputStream(ClassLoader.getSystemResourceAsStream("res/config.yml"))){
+            while 
         }
         catch (IOException ioExc) {
             ioExc.printStackTrace();
